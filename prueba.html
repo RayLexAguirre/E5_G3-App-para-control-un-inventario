@@ -1,0 +1,150 @@
+<style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, sans-serif;
+    }
+    </style>
+    
+    <h1>Estructura de datos</h1>
+    <div id='app'>
+      <form>
+        <label for="txtPlaca">
+          Placa:<input type='text' id='txtPlaca'>
+        </label>
+        <label for="txtModelo">
+          Modelo:<input type='text' id='txtModelo'>
+        </label>
+        <label for="txtMarca">
+          Marca:<input type='text' id='txtMarca'>
+        </label>
+        <label for="txtColor">
+          Color:<input type='text' id='txtColor'>
+        </label>
+        <button type='button' id='btnAdd'>Agregar</button>
+        <button type='button' id='btnSearch'>Buscar</button>
+        <button type='reset'>Cancelar</button>
+      </form>
+      <div id='detalles'></div>
+    </div>
+    <script>
+    
+      class Vehiculo{
+        constructor(placa, modelo, marca, color){
+          this.placa=placa;
+          this.modelo=modelo;
+          this.marca=marca;
+          this.color=color;
+        }
+        info(){
+          return "Placa: " + this.placa;
+        }
+        infoHtml(){
+          return `<div>
+            <h3>${this.placa}</h3>
+            <p>${this.modelo} ${this.marca}</p>
+          </div>`;
+        }
+      }
+    
+      class Lote{
+        constructor(){
+          this.datos=new Array();
+        }
+        agregar(nuevo){
+          this.datos.push(nuevo);
+        }
+        buscar(placa){
+          for (let i=0;i<this.datos.length;i++){
+            console.log('...',this.datos[i].placa);
+            if (placa==this.datos[i].placa)
+              return this.datos[i];
+          }
+          return null;
+        }
+      }
+      //INTERFAZ
+      //let ui=new UI();  tendriamos que crear una clase para pintar en el HTML unas tarjetas con los productos
+      let estacionamiento=new Lote();
+        let btnAdd=document.getElementById('btnAdd');
+      btnAdd.addEventListener('click',()=>{
+          let placa=document.getElementById('txtPlaca').value;
+        let modelo=document.getElementById('txtModelo').value;
+        let marca=document.getElementById('txtMarca').value;
+        let color=document.getElementById('txtColor').value;
+        let carro=new Vehiculo(placa,modelo,marca,color);
+        estacionamiento.agregar(carro);
+        document.getElementById('detalles').innerHTML += `
+                <p>Se agrego el vehiculo ${carro.placa} correctamente</p>
+    
+            `;
+        //ui.addProducto(nuevo)
+      });
+      
+      let btnSearch=document.getElementById('btnSearch');
+      btnSearch.addEventListener('click',()=>{
+          let placa=document.getElementById('txtPlaca').value;
+        console.log(placa);
+        let buscado=estacionamiento.buscar(placa);
+        let detalles=document.getElementById('detalles');
+        if (buscado==null)
+          detalles.innerHTML += '<p> No se encontro</p>';
+        else
+          detalles.innerHTML += '<p>hallado</p>' + buscado.infoHtml();
+      });
+      
+      
+      
+      
+      
+      
+      /*
+    
+    Nodo                  Estructura               Aplicacion
+    Base                   de datos               DOM(html,js)
+    
+    Estudiante              array
+    Vehiculo                >>>set,map,list
+    Libro                   listas simples
+    Persona                 listas dobles
+    Producto                circulares
+                            pilas, colas
+                            arboles
+                            grafos
+    
+    crear una interfaz en HTML que me permita controlar un inventario de productos, guardando, codigo, nombre, cantidad y precio de cada uno, utilizando un vector, e implemetando las funciones para agregar, buscar, eliminar, listar los productos en el mismo orden y en orden inverso a como se fueron agregando.
+    
+    
+    class Producto{}
+    class Inventario{
+      constructor(){
+        ....map()
+      }
+      agregar(nuevo)
+         al array
+         this.datos.set(nuevo)
+      buscar(numeroCuenta)
+         ->NO->null
+         ->SI->
+               1.- SI o NO
+               2.- su información
+               3.- devuelvo el alumno
+         return this.datos[n];
+      eliminar(numeroCuenta)
+      listar()->"texto con todos los datos"
+    }
+    
+    
+    
+    }
+    */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+    
